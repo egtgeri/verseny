@@ -1,40 +1,33 @@
-import csv
 import pygame
-
-#fájl beolvasása
-#with open('mars_map_50x50.csv', newline="\n", encoding = 'utf-8') as f:
- #   kockak = csv.reader(f, delimiter=',')
-  #  print(kockak)
-   # for row in kockak:
-    #    print(*row)
-
-    
+import csv
 
 pygame.init()
 
-screen = pygame.display.set_mode((1280,900))
-image1 = pygame.image.load("img/mars_rover.png").convert_alpha() 
-image1= pygame.transform.scale(image1,(image1.get_width()/5,image1.get_height()/5))
+screen = pygame.display.set_mode((1280, 900))
+image1 = pygame.image.load("img/mars_rover.png").convert_alpha()
+
+# Kép méretezése 50x50 pixelre
+IMAGE_SIZE = 50
+image1 = pygame.transform.scale(image1, (IMAGE_SIZE, IMAGE_SIZE))
 
 clock = pygame.time.Clock()
-
 running = True
 
 while running:
-    screen.fill((255,255,255))
-   # pygame.display.flip()
-    clock.tick(60)
+    screen.fill((255, 255, 255))
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-    screen.blit(image1,(100,100))
+    
+    # 50x50-es rács kirajzolása
+    for row in range(50):  # sorok (y)
+        for col in range(50):  # oszlopok (x)
+            x = col * IMAGE_SIZE
+            y = row * IMAGE_SIZE
+            screen.blit(image1, (x, y))
+    
     pygame.display.update()
+    clock.tick(60)
 
-pygame.quit
-
-
-
-
-
-
-
+pygame.quit()
